@@ -104,9 +104,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_SINGLE_TOP
         PopUp.width = call.argument<Int>("width") ?: PopUp.width
         PopUp.height = call.argument<Int>("height") ?: PopUp.height
-        PopUp.verticalAlignment = call.argument<Int>("verticalAlignment") ?: PopUp.verticalAlignment
-        PopUp.horizontalAlignment =
-            call.argument<Int>("horizontalAlignment") ?: PopUp.horizontalAlignment
+        PopUp.alignment = call.argument<Int>("alignment") ?: PopUp.alignment
         PopUp.backgroundBehavior =
             call.argument<Int>("backgroundBehavior") ?: PopUp.backgroundBehavior
         PopUp.screenOrientation = call.argument<Int>("screenOrientation") ?: PopUp.screenOrientation

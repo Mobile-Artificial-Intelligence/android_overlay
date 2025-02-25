@@ -9,8 +9,7 @@ import android.view.Gravity
 object PopUp {
     var height: Int = WindowManager.LayoutParams.MATCH_PARENT
     var width: Int = WindowManager.LayoutParams.MATCH_PARENT
-    var verticalAlignment = Gravity.CENTER
-    var horizontalAlignment = Gravity.CENTER
+    var alignment = Gravity.CENTER
     var backgroundBehavior = 1
     var screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     var closeWhenTapBackButton = false
@@ -28,8 +27,7 @@ object PopUp {
             )
         sharedPref.edit().putInt("height", height).apply()
         sharedPref.edit().putInt("width", width).apply()
-        sharedPref.edit().putInt("verticalAlignment", verticalAlignment).apply()
-        sharedPref.edit().putInt("horizontalAlignment", horizontalAlignment).apply()
+        sharedPref.edit().putInt("alignment", alignment).apply()
         sharedPref.edit().putInt("backgroundBehavior", backgroundBehavior).apply()
         sharedPref.edit().putInt("screenOrientation", screenOrientation).apply()
         sharedPref.edit().putBoolean("closeWhenTapBackButton", closeWhenTapBackButton).apply()
@@ -47,8 +45,7 @@ object PopUp {
             )
         height = sharedPref.getInt("height", height)
         width = sharedPref.getInt("width", width)
-        verticalAlignment = sharedPref.getInt("verticalAlignment", verticalAlignment)
-        horizontalAlignment = sharedPref.getInt("horizontalAlignment", horizontalAlignment)
+        alignment = sharedPref.getInt("verticalAlignment", alignment)
         backgroundBehavior = sharedPref.getInt("backgroundBehavior", backgroundBehavior)
         screenOrientation = sharedPref.getInt("screenOrientation", screenOrientation)
         closeWhenTapBackButton =

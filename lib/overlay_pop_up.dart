@@ -41,8 +41,7 @@ class OverlayPopUp {
   static Future<bool> showOverlay({
     int? height,
     int? width,
-    Gravity? verticalAlignment,
-    Gravity? horizontalAlignment,
+    OverlayAlignment? alignment,
     OverlayFlag? backgroundBehavior,
     ScreenOrientation? screenOrientation,
     bool? closeWhenTapBackButton = false,
@@ -57,10 +56,7 @@ class OverlayPopUp {
       'width': width,
 
       /// is not required by default is CENTER for more info see: https://developer.android.com/reference/android/view/Gravity
-      'verticalAlignment': verticalAlignment?.value,
-
-      /// is not required by default is CENTER for more info see: https://developer.android.com/reference/android/view/Gravity
-      'horizontalAlignment': horizontalAlignment?.value,
+      'alignment': alignment?.value,
 
       /// by default is focusable flag that is you can take focus inside a overlay for example inside a textfield and [tapThrough] you can tap through the overlay background even if has MATCH_PARENT sizes.
       'backgroundBehavior': backgroundBehavior?.value,
@@ -170,7 +166,7 @@ class OverlayPopUp {
   }
 }
 
-enum Gravity {
+enum OverlayAlignment {
   axisClip(8),
   axisPullAfter(4),
   axisPullBefore(2),
@@ -200,7 +196,7 @@ enum Gravity {
   verticalGravityMask(112);
 
   final int value;
-  const Gravity(this.value);
+  const OverlayAlignment(this.value);
 }
 
 enum OverlayFlag {

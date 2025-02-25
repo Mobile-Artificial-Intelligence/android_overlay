@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                         width: 100,
                         height: 100,
                         screenOrientation: ScreenOrientation.portrait,
-                        horizontalAlignment: Gravity.left,
+                        alignment: OverlayAlignment.left,
                         closeWhenTapBackButton: true,
                         draggable: true,
                         entryPointMethodName: 'customOverlay',

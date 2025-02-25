@@ -70,7 +70,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
             windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         }
-        windowConfig.gravity = PopUp.horizontalAlignment
+        windowConfig.gravity = PopUp.alignment
         windowConfig.screenOrientation = PopUp.screenOrientation
         windowManager?.addView(flutterView, windowConfig)
         loadLastPosition()
