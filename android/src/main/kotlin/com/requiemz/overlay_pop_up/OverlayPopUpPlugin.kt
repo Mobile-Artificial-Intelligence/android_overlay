@@ -175,14 +175,14 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
-            val windowConfig = OverlayService.flutterView.layoutParams
-            windowConfig.width = call.argument("width") ?: WindowManager.LayoutParams.MATCH_PARENT
-            windowConfig.height = call.argument("height") ?: WindowManager.LayoutParams.MATCH_PARENT
-            windowConfig.x = call.argument("x") ?: OverlayService.lastX ?: 0
-            windowConfig.y = call.argument("y") ?: OverlayService.lastY ?: 0
+            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
+            params.width = call.argument<Int>("width") ?: WindowManager.LayoutParams.MATCH_PARENT
+            params.height = call.argument<Int>("height") ?: WindowManager.LayoutParams.MATCH_PARENT
+            params.x = call.argument<Int>("x") ?: OverlayService.lastX.toInt()
+            params.y = call.argument<Int>("y") ?: OverlayService.lastY.toInt()
             PopUp.isDraggable = call.argument("isDraggable") ?: PopUp.isDraggable
             OverlayService.windowManager!!.updateViewLayout(
-                OverlayService.flutterView, windowConfig
+                OverlayService.flutterView, params
             )
             result.success(true)
         } else result.notImplemented()

@@ -123,8 +123,11 @@ class _MyAppState extends State<MyApp> {
               MaterialButton(
                 onPressed: () async {
                   if (await OverlayPopUp.isActive()) {
-                    await OverlayPopUp.updateOverlaySize(
-                        width: 500, height: 500);
+                    await OverlayPopUp.updateOverlay(
+                      width: 500, 
+                      height: 500,
+                      isDraggable: true,
+                    );
                   }
                 },
                 color: Colors.red[900],

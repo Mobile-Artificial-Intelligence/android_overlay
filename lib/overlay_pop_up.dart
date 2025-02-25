@@ -106,19 +106,31 @@ class OverlayPopUp {
   }
 
   ///
-  /// update overlay layout size
+  /// update overlay layout
   ///
-  static Future<bool> updateOverlaySize({
+  static Future<bool> updateOverlay({
     int? height,
     int? width,
+    double? x,
+    double? y,
+    bool isDraggable = false,
   }) async {
     final result =
-        await _methodChannel.invokeMethod<bool?>('updateOverlaySize', {
+        await _methodChannel.invokeMethod<bool?>('updateOverlay', {
       /// the new value for layout height
       'height': height,
 
       /// the new value for layout width
       'width': width,
+
+      /// the new value for layout x position
+      'x': x,
+
+      /// the new value for layout y position
+      'y': y,
+
+      /// by default is false therefore the overlay can´t be dragged.
+      'isDraggable': isDraggable,
     });
     return result ?? false;
   }
