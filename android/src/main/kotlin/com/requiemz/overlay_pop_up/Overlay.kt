@@ -1,7 +1,5 @@
 package com.requiemz.overlay_pop_up
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.view.WindowManager
 import android.view.Gravity
@@ -14,45 +12,8 @@ object Overlay {
     var screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     var closeWhenTapBackButton = false
     var draggable = false
+    var snapping = false
     var lastX = 0
     var lastY = 0
     var entryPointMethodName: String = ""
-
-
-    fun savePreferences(context: Context) {
-        val sharedPref: SharedPreferences =
-            context.getSharedPreferences(
-                OverlayPopUpPlugin.OVERLAY_CHANNEL_NAME,
-                Context.MODE_PRIVATE
-            )
-        sharedPref.edit().putInt("height", height).apply()
-        sharedPref.edit().putInt("width", width).apply()
-        sharedPref.edit().putInt("alignment", alignment).apply()
-        sharedPref.edit().putInt("backgroundBehavior", backgroundBehavior).apply()
-        sharedPref.edit().putInt("screenOrientation", screenOrientation).apply()
-        sharedPref.edit().putBoolean("closeWhenTapBackButton", closeWhenTapBackButton).apply()
-        sharedPref.edit().putBoolean("draggable", draggable).apply()
-        sharedPref.edit().putInt("lastX", lastX).apply()
-        sharedPref.edit().putInt("lastY", lastY).apply()
-        sharedPref.edit().putString("entryPointName", entryPointMethodName).apply()
-    }
-
-    fun loadPreferences(context: Context) {
-        val sharedPref: SharedPreferences =
-            context.getSharedPreferences(
-                OverlayPopUpPlugin.OVERLAY_CHANNEL_NAME,
-                Context.MODE_PRIVATE
-            )
-        height = sharedPref.getInt("height", height)
-        width = sharedPref.getInt("width", width)
-        alignment = sharedPref.getInt("verticalAlignment", alignment)
-        backgroundBehavior = sharedPref.getInt("backgroundBehavior", backgroundBehavior)
-        screenOrientation = sharedPref.getInt("screenOrientation", screenOrientation)
-        closeWhenTapBackButton =
-            sharedPref.getBoolean("closeWhenTapBackButton", closeWhenTapBackButton)
-        draggable = sharedPref.getBoolean("draggable", draggable)
-        lastX = sharedPref.getInt("lastX", lastX)
-        lastY = sharedPref.getInt("lastY", lastY)
-        entryPointMethodName = sharedPref.getString("entryPointName", entryPointMethodName) ?: ""
-    }
 }

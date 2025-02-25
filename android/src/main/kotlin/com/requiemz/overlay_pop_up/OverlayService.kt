@@ -38,7 +38,6 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
-        Overlay.loadPreferences(applicationContext)
         val engine = FlutterEngineCache.getInstance().get(OverlayPopUpPlugin.CACHE_ENGINE_ID)
         if (engine == null) {
             println("[OverlayPopUp] FlutterEngine not available in cache. Stopping service.")
@@ -169,20 +168,5 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
             }
         }
         handler.post(animationRunnable)
-    }
-    
-
-    private fun saveLastPosition(x: Int, y: Int) {
-        Overlay.lastX = x
-        Overlay.lastY = y
-        Overlay.savePreferences(applicationContext)
-    }
-
-    private fun loadLastPosition() {
-        if (Overlay.lastY == 0 && Overlay.lastX == 0) return
-        val windowConfig = flutterView.layoutParams as LayoutParams
-        windowConfig.x = Overlay.lastX
-        windowConfig.y = Overlay.lastY
-        windowManager?.updateViewLayout(flutterView, windowConfig)
     }
 }

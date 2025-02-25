@@ -110,7 +110,6 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         Overlay.closeWhenTapBackButton = call.argument<Boolean>("closeWhenTapBackButton") ?: Overlay.closeWhenTapBackButton
         Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
         Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
-        if (context != null) Overlay.savePreferences(context!!)
 
         // Initialize and cache the FlutterEngine before starting the service
         initializeAndCacheFlutterEngine()
@@ -201,7 +200,6 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        if (context != null) Overlay.loadPreferences(context!!)
         if (OverlayService.windowManager != null) {
             val windowConfig = OverlayService.flutterView.layoutParams
             windowConfig.width = Overlay.width
