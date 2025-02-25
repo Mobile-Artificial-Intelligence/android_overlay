@@ -24,6 +24,7 @@ import io.flutter.plugin.common.JSONMessageCodec
 class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View.OnTouchListener {
     companion object {
         var isActive: Boolean = false
+        val handler = Handler(Looper.getMainLooper())
         var windowManager: WindowManager? = null
         lateinit var flutterView: FlutterView
     }
@@ -68,6 +69,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
 
     override fun onDestroy() {
         super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
         windowManager?.removeView(flutterView)
         isActive = false
     }
@@ -137,9 +139,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         animateOverlayToPosition(params, snapX, params.y)
     }
     
-    private fun animateOverlayToPosition(params: LayoutParams, destX: Int, destY: Int) {
-        val handler = Handler(Looper.getMainLooper())
-        
+    private fun animateOverlayToPosition(params: LayoutParams, destX: Int, destY: Int) {   
         val startX = params.x
         val startY = params.y
         val distance = hypot((destX - startX).toDouble(), (destY - startY).toDouble())
