@@ -81,8 +81,8 @@ class _MyAppState extends State<MyApp> {
                   if (permission) {
                     if (!await OverlayPopUp.isActive()) {
                       isActive = await OverlayPopUp.showOverlay(
-                        width: 100,
-                        height: 100,
+                        width: 120,
+                        height: 120,
                         screenOrientation: ScreenOrientation.portrait,
                         alignment: OverlayAlignment.left,
                         closeWhenTapBackButton: true,
@@ -125,14 +125,12 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   if (await OverlayPopUp.isActive()) {
                     await OverlayPopUp.updateOverlay(
-                      width: 20, 
-                      height: 20,
-                      draggable: true,
+                      snapping: true
                     );
                   }
                 },
                 color: Colors.red[900],
-                child: const Text('Update overlay size',
+                child: const Text('Update overlay',
                     style: TextStyle(color: Colors.white)),
               ),
               MaterialButton(

@@ -25,8 +25,6 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         var isActive: Boolean = false
         var windowManager: WindowManager? = null
         lateinit var flutterView: FlutterView
-        var lastX = 0f
-        var lastY = 0f
     }
 
     private lateinit var overlayMessageChannel: BasicMessageChannel<Any?>
@@ -101,46 +99,52 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         if (!Overlay.draggable) return false
-        val windowConfig = flutterView.layoutParams as LayoutParams
+        val params = flutterView.layoutParams as LayoutParams
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                lastX = event.rawX
-                lastY = event.rawY
+                Overlay.lastX = event.rawX
+                Overlay.lastY = event.rawY
             }
     
             MotionEvent.ACTION_MOVE -> {
-                val dx = event.rawX - lastX
-                val dy = event.rawY - lastY
+                val dx = event.rawX - Overlay.lastX
+                val dy = event.rawY - Overlay.lastY
                 if (dx * dx + dy * dy < 25) {
                     return false
                 }
-                lastX = event.rawX
-                lastY = event.rawY
-                val finalX = windowConfig.x + dx.toInt()
-                val finalY = windowConfig.y + dy.toInt()
-                windowConfig.x = finalX
-                windowConfig.y = finalY
-                windowManager?.updateViewLayout(flutterView, windowConfig)
+                Overlay.lastX = event.rawX
+                Overlay.lastY = event.rawY
+                val finalX = params.x + dx.toInt()
+                val finalY = params.y + dy.toInt()
+                params.x = finalX
+                params.y = finalY
+                windowManager?.updateViewLayout(flutterView, params)
             }
     
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                // Get screen width
-                val displayMetrics = applicationContext.resources.displayMetrics
-                val screenWidth = displayMetrics.widthPixels
-                val overlayWidth = flutterView.getWidth()
-    
-                // Determine the closest edge (left or right)
-                val leftEdge = 0
-                val rightEdge = screenWidth - overlayWidth
-                val snapX = if (windowConfig.x < screenWidth / 2) leftEdge else rightEdge
-    
-                // Animate to snap position
-                animateOverlayToPosition(windowConfig, snapX, windowConfig.y)
+                if (Overlay.snapping) {
+                    snap(params)
+                }
             }
     
             else -> return false
         }
         return false
+    }
+
+    private fun snap(params: LayoutParams) {
+        // Get screen width
+        val displayMetrics = applicationContext.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val overlayWidth = flutterView.width
+
+        // Determine the closest edge (left or right)
+        val leftEdge = 0
+        val rightEdge = screenWidth - overlayWidth
+        val snapX = if (params.x < screenWidth / 2) leftEdge else rightEdge
+
+        // Animate to snap position
+        animateOverlayToPosition(params, snapX, params.y)
     }
     
     private fun animateOverlayToPosition(params: LayoutParams, destX: Int, destY: Int) {

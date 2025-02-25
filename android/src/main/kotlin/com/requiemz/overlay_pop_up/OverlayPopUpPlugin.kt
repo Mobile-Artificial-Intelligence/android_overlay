@@ -109,6 +109,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         Overlay.screenOrientation = call.argument<Int>("screenOrientation") ?: Overlay.screenOrientation
         Overlay.closeWhenTapBackButton = call.argument<Boolean>("closeWhenTapBackButton") ?: Overlay.closeWhenTapBackButton
         Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
+        Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
         Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
 
         // Initialize and cache the FlutterEngine before starting the service
@@ -169,11 +170,12 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
             val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
-            params.width = call.argument<Int>("width") ?: WindowManager.LayoutParams.MATCH_PARENT
-            params.height = call.argument<Int>("height") ?: WindowManager.LayoutParams.MATCH_PARENT
-            params.x = call.argument<Int>("x") ?: OverlayService.lastX.toInt()
-            params.y = call.argument<Int>("y") ?: OverlayService.lastY.toInt()
+            params.width = call.argument<Int>("width") ?: Overlay.width
+            params.height = call.argument<Int>("height") ?: Overlay.height
+            params.x = call.argument<Int>("x") ?: Overlay.lastX.toInt()
+            params.y = call.argument<Int>("y") ?: Overlay.lastY.toInt()
             Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
+            Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, params
             )
@@ -186,8 +188,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
-                        "x" to OverlayService.lastX,
-                        "y" to OverlayService.lastY
+                        "x" to Overlay.lastX,
+                        "y" to Overlay.lastY
                     )
                 )
             )
