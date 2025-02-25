@@ -75,7 +75,6 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         windowConfig.gravity = Overlay.alignment
         windowConfig.screenOrientation = Overlay.screenOrientation
         windowManager?.addView(flutterView, windowConfig)
-        loadLastPosition()
         isActive = true
         println("[OverlayPopUp] Overlay successfully initialized.")
     }
@@ -129,7 +128,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
                 // Get screen width
                 val displayMetrics = applicationContext.resources.displayMetrics
                 val screenWidth = displayMetrics.widthPixels
-                val overlayWidth = flutterView.width
+                val overlayWidth = flutterView.getWidth()
     
                 // Determine the closest edge (left or right)
                 val leftEdge = 0
@@ -152,23 +151,20 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         val totalFrames = duration / frameRate
         val startX = params.x
         val startY = params.y
-        val deltaX = (destX - startX) / totalFrames
-        val deltaY = (destY - startY) / totalFrames
+        val endX = destX - startX
+        val endY = destY - startY
+        val deltaX = endX / totalFrames
+        val deltaY = endY / totalFrames
     
         var currentFrame = 0
         val animationRunnable = object : Runnable {
             override fun run() {
-                if (currentFrame < totalFrames) {
+                if (currentFrame <= totalFrames) {
                     params.x += deltaX
                     params.y += deltaY
                     windowManager?.updateViewLayout(flutterView, params)
                     currentFrame++
                     handler.postDelayed(this, frameRate.toLong())
-                } else {
-                    params.x = destX
-                    params.y = destY
-                    windowManager?.updateViewLayout(flutterView, params)
-                    saveLastPosition(destX, destY)
                 }
             }
         }
