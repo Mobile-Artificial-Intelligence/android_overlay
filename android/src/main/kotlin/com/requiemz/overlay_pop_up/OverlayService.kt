@@ -1,5 +1,6 @@
 package com.requiemz.overlay_pop_up
 
+import kotlin.math.hypot
 import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
@@ -138,25 +139,40 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     
     private fun animateOverlayToPosition(params: LayoutParams, destX: Int, destY: Int) {
         val handler = Handler(Looper.getMainLooper())
-        val duration = 300 // Animation duration in milliseconds
-        val frameRate = 16 // Approx. 60 FPS
-        val totalFrames = duration / frameRate
+        
         val startX = params.x
         val startY = params.y
-        val endX = destX - startX
-        val endY = destY - startY
-        val deltaX = endX / totalFrames
-        val deltaY = endY / totalFrames
-    
+        val distance = hypot((destX - startX).toDouble(), (destY - startY).toDouble())
+        
+        val speed = 3.0 // Pixels per millisecond (adjust as needed)
+        val duration = (distance / speed).toLong().coerceAtLeast(100) // Ensure a minimum duration
+        val frameRate = 16L // ~60 FPS
+        val totalFrames = (duration / frameRate).toInt()
+        
+        if (totalFrames == 0) {
+            params.x = destX
+            params.y = destY
+            windowManager?.updateViewLayout(flutterView, params)
+            return
+        }
+        
+        val deltaX = (destX - startX) / totalFrames.toFloat()
+        val deltaY = (destY - startY) / totalFrames.toFloat()
+        
         var currentFrame = 0
         val animationRunnable = object : Runnable {
             override fun run() {
-                if (currentFrame <= totalFrames) {
-                    params.x += deltaX
-                    params.y += deltaY
+                if (currentFrame < totalFrames) {
+                    params.x = (startX + deltaX * currentFrame).toInt()
+                    params.y = (startY + deltaY * currentFrame).toInt()
                     windowManager?.updateViewLayout(flutterView, params)
                     currentFrame++
-                    handler.postDelayed(this, frameRate.toLong())
+                    handler.postDelayed(this, frameRate)
+                } else {
+                    // Ensure final position is set
+                    params.x = destX
+                    params.y = destY
+                    windowManager?.updateViewLayout(flutterView, params)
                 }
             }
         }
