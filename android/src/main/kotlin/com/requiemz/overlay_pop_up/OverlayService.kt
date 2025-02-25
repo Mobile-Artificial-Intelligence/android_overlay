@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.PixelFormat
 import android.os.Build
 import android.os.IBinder
+import android.os.Handler
+import android.os.Looper
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
@@ -107,6 +109,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
                 lastX = event.rawX
                 lastY = event.rawY
             }
+    
             MotionEvent.ACTION_MOVE -> {
                 val dx = event.rawX - lastX
                 val dy = event.rawY - lastY
@@ -120,18 +123,58 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
                 windowConfig.x = finalX
                 windowConfig.y = finalY
                 windowManager?.updateViewLayout(flutterView, windowConfig)
-                saveLastPosition(finalX, finalY)
             }
-
+    
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                windowManager?.updateViewLayout(flutterView, windowConfig)
-                return false
+                // Get screen width
+                val displayMetrics = applicationContext.resources.displayMetrics
+                val screenWidth = displayMetrics.widthPixels
+                val overlayWidth = flutterView.width
+    
+                // Determine the closest edge (left or right)
+                val leftEdge = 0
+                val rightEdge = screenWidth - overlayWidth
+                val snapX = if (windowConfig.x < screenWidth / 2) leftEdge else rightEdge
+    
+                // Animate to snap position
+                animateOverlayToPosition(windowConfig, snapX, windowConfig.y)
             }
-
+    
             else -> return false
         }
         return false
     }
+    
+    private fun animateOverlayToPosition(params: LayoutParams, destX: Int, destY: Int) {
+        val handler = Handler(Looper.getMainLooper())
+        val duration = 300 // Animation duration in milliseconds
+        val frameRate = 16 // Approx. 60 FPS
+        val totalFrames = duration / frameRate
+        val startX = params.x
+        val startY = params.y
+        val deltaX = (destX - startX) / totalFrames
+        val deltaY = (destY - startY) / totalFrames
+    
+        var currentFrame = 0
+        val animationRunnable = object : Runnable {
+            override fun run() {
+                if (currentFrame < totalFrames) {
+                    params.x += deltaX
+                    params.y += deltaY
+                    windowManager?.updateViewLayout(flutterView, params)
+                    currentFrame++
+                    handler.postDelayed(this, frameRate.toLong())
+                } else {
+                    params.x = destX
+                    params.y = destY
+                    windowManager?.updateViewLayout(flutterView, params)
+                    saveLastPosition(destX, destY)
+                }
+            }
+        }
+        handler.post(animationRunnable)
+    }
+    
 
     private fun saveLastPosition(x: Int, y: Int) {
         Overlay.lastX = x
