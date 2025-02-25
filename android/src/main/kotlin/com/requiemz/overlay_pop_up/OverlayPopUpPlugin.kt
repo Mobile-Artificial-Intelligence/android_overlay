@@ -180,7 +180,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             params.height = call.argument<Int>("height") ?: WindowManager.LayoutParams.MATCH_PARENT
             params.x = call.argument<Int>("x") ?: OverlayService.lastX.toInt()
             params.y = call.argument<Int>("y") ?: OverlayService.lastY.toInt()
-            PopUp.isDraggable = call.argument("isDraggable") ?: PopUp.isDraggable
+            PopUp.isDraggable = call.argument<Boolean>("isDraggable") ?: PopUp.isDraggable
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, params
             )

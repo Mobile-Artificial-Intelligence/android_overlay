@@ -81,9 +81,10 @@ class _MyAppState extends State<MyApp> {
                   if (permission) {
                     if (!await OverlayPopUp.isActive()) {
                       isActive = await OverlayPopUp.showOverlay(
-                        width: 300,
-                        height: 350,
+                        width: 100,
+                        height: 100,
                         screenOrientation: ScreenOrientation.portrait,
+                        horizontalAlignment: Gravity.left,
                         closeWhenTapBackButton: true,
                         isDraggable: true,
                         entryPointMethodName: 'customOverlay',
@@ -124,8 +125,8 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   if (await OverlayPopUp.isActive()) {
                     await OverlayPopUp.updateOverlay(
-                      width: 500, 
-                      height: 500,
+                      width: 20, 
+                      height: 20,
                       isDraggable: true,
                     );
                   }
@@ -165,49 +166,15 @@ class _MyAppState extends State<MyApp> {
 @pragma("vm:entry-point")
 void customOverlay() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: OverlayWidget(),
+    home: FloatingActionButton(
+      shape: const CircleBorder(),
+      backgroundColor: Colors.red[900],
+      elevation: 0,
+      onPressed: () async => await OverlayPopUp.closeOverlay(),
+      child: const Text('X',
+          style: TextStyle(color: Colors.white, fontSize: 20)),
+    ),
   ));
-}
-
-class OverlayWidget extends StatelessWidget {
-  const OverlayWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              child: StreamBuilder(
-                stream: OverlayPopUp.dataListener,
-                initialData: null,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  return Text(
-                    snapshot.data?['mssg'] ?? '',
-                    style: const TextStyle(fontSize: 14),
-                    textAlign: TextAlign.center,
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 10),
-            FloatingActionButton(
-              shape: const CircleBorder(),
-              backgroundColor: Colors.red[900],
-              elevation: 12,
-              onPressed: () async => await OverlayPopUp.closeOverlay(),
-              child: const Text('X',
-                  style: TextStyle(color: Colors.white, fontSize: 20)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
