@@ -102,19 +102,15 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun showOverlay(call: MethodCall, result: Result) {
         val i = Intent(context, OverlayService::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_SINGLE_TOP
-        PopUp.width = call.argument<Int>("width") ?: PopUp.width
-        PopUp.height = call.argument<Int>("height") ?: PopUp.height
-        PopUp.alignment = call.argument<Int>("alignment") ?: PopUp.alignment
-        PopUp.backgroundBehavior =
-            call.argument<Int>("backgroundBehavior") ?: PopUp.backgroundBehavior
-        PopUp.screenOrientation = call.argument<Int>("screenOrientation") ?: PopUp.screenOrientation
-        PopUp.closeWhenTapBackButton =
-            call.argument<Boolean>("closeWhenTapBackButton") ?: PopUp.closeWhenTapBackButton
-        PopUp.draggable =
-            call.argument<Boolean>("draggable") ?: PopUp.draggable
-        PopUp.entryPointMethodName =
-            call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
-        if (context != null) PopUp.savePreferences(context!!)
+        Overlay.width = call.argument<Int>("width") ?: Overlay.width
+        Overlay.height = call.argument<Int>("height") ?: Overlay.height
+        Overlay.alignment = call.argument<Int>("alignment") ?: Overlay.alignment
+        Overlay.backgroundBehavior = call.argument<Int>("backgroundBehavior") ?: Overlay.backgroundBehavior
+        Overlay.screenOrientation = call.argument<Int>("screenOrientation") ?: Overlay.screenOrientation
+        Overlay.closeWhenTapBackButton = call.argument<Boolean>("closeWhenTapBackButton") ?: Overlay.closeWhenTapBackButton
+        Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
+        Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
+        if (context != null) Overlay.savePreferences(context!!)
 
         // Initialize and cache the FlutterEngine before starting the service
         initializeAndCacheFlutterEngine()
@@ -135,7 +131,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             val engineGroup = FlutterEngineGroup(context!!)
             val dartEntryPoint = DartExecutor.DartEntrypoint(
                 FlutterInjector.instance().flutterLoader().findAppBundlePath(),
-                PopUp.entryPointMethodName
+                Overlay.entryPointMethodName
             )
             val flutterEngine = engineGroup.createAndRunEngine(context!!, dartEntryPoint)
             FlutterEngineCache.getInstance().put(CACHE_ENGINE_ID, flutterEngine)
@@ -178,7 +174,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             params.height = call.argument<Int>("height") ?: WindowManager.LayoutParams.MATCH_PARENT
             params.x = call.argument<Int>("x") ?: OverlayService.lastX.toInt()
             params.y = call.argument<Int>("y") ?: OverlayService.lastY.toInt()
-            PopUp.draggable = call.argument<Boolean>("draggable") ?: PopUp.draggable
+            Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, params
             )
@@ -187,7 +183,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun getOverlayPosition(result: Result) {
-        if (PopUp.draggable) {
+        if (Overlay.draggable) {
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
@@ -205,11 +201,11 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        if (context != null) PopUp.loadPreferences(context!!)
+        if (context != null) Overlay.loadPreferences(context!!)
         if (OverlayService.windowManager != null) {
             val windowConfig = OverlayService.flutterView.layoutParams
-            windowConfig.width = PopUp.width
-            windowConfig.height = PopUp.height
+            windowConfig.width = Overlay.width
+            windowConfig.height = Overlay.height
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView,
                 windowConfig

@@ -6,7 +6,7 @@ import android.content.pm.ActivityInfo
 import android.view.WindowManager
 import android.view.Gravity
 
-object PopUp {
+object Overlay {
     var height: Int = WindowManager.LayoutParams.MATCH_PARENT
     var width: Int = WindowManager.LayoutParams.MATCH_PARENT
     var alignment = Gravity.CENTER

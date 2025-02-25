@@ -36,7 +36,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
-        PopUp.loadPreferences(applicationContext)
+        Overlay.loadPreferences(applicationContext)
         val engine = FlutterEngineCache.getInstance().get(OverlayPopUpPlugin.CACHE_ENGINE_ID)
         if (engine == null) {
             println("[OverlayPopUp] FlutterEngine not available in cache. Stopping service.")
@@ -46,7 +46,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         engine.lifecycleChannel.appIsResumed()
         flutterView = object : FlutterView(applicationContext, FlutterTextureView(applicationContext)) {
             override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-                return if (event.keyCode == KeyEvent.KEYCODE_BACK && PopUp.closeWhenTapBackButton) {
+                return if (event.keyCode == KeyEvent.KEYCODE_BACK && Overlay.closeWhenTapBackButton) {
                     windowManager?.removeView(flutterView)
                     stopService(Intent(baseContext, OverlayService::class.java))
                     isActive = false
@@ -60,18 +60,18 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         flutterView.setOnTouchListener(this)
         windowManager = getSystemService(WINDOW_SERVICE) as WindowManager?
         val windowConfig = WindowManager.LayoutParams(
-            PopUp.width,
-            PopUp.height,
+            Overlay.width,
+            Overlay.height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            if (PopUp.backgroundBehavior == 1) WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN else
+            if (Overlay.backgroundBehavior == 1) WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN else
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             PixelFormat.TRANSPARENT
         )
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
             windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         }
-        windowConfig.gravity = PopUp.alignment
-        windowConfig.screenOrientation = PopUp.screenOrientation
+        windowConfig.gravity = Overlay.alignment
+        windowConfig.screenOrientation = Overlay.screenOrientation
         windowManager?.addView(flutterView, windowConfig)
         loadLastPosition()
         isActive = true
@@ -100,7 +100,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        if (!PopUp.draggable) return false
+        if (!Overlay.draggable) return false
         val windowConfig = flutterView.layoutParams as LayoutParams
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -134,16 +134,16 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     }
 
     private fun saveLastPosition(x: Int, y: Int) {
-        PopUp.lastX = x
-        PopUp.lastY = y
-        PopUp.savePreferences(applicationContext)
+        Overlay.lastX = x
+        Overlay.lastY = y
+        Overlay.savePreferences(applicationContext)
     }
 
     private fun loadLastPosition() {
-        if (PopUp.lastY == 0 && PopUp.lastX == 0) return
+        if (Overlay.lastY == 0 && Overlay.lastX == 0) return
         val windowConfig = flutterView.layoutParams as LayoutParams
-        windowConfig.x = PopUp.lastX
-        windowConfig.y = PopUp.lastY
+        windowConfig.x = Overlay.lastX
+        windowConfig.y = Overlay.lastY
         windowManager?.updateViewLayout(flutterView, windowConfig)
     }
 }
