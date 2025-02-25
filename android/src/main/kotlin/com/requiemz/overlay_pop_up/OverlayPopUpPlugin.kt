@@ -61,9 +61,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             "closeOverlay" -> closeOverlay(result)
             "isActive" -> result.success(OverlayService.isActive)
             "getOverlayPosition" -> getOverlayPosition(result)
-            "updateOverlaySize" -> updateOverlaySize(call, result)
+            "updateOverlay" -> updateOverlay(call, result)
             else -> result.notImplemented()
-
         }
     }
 
@@ -174,11 +173,14 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         overlayMessageChannel.send(message, reply)
     }
 
-    private fun updateOverlaySize(call: MethodCall, result: Result) {
+    private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
             val windowConfig = OverlayService.flutterView.layoutParams
             windowConfig.width = call.argument("width") ?: WindowManager.LayoutParams.MATCH_PARENT
             windowConfig.height = call.argument("height") ?: WindowManager.LayoutParams.MATCH_PARENT
+            windowConfig.x = call.argument("x") ?: OverlayService.lastX ?: 0
+            windowConfig.y = call.argument("y") ?: OverlayService.lastY ?: 0
+            PopUp.isDraggable = call.argument("isDraggable") ?: PopUp.isDraggable
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, windowConfig
             )
