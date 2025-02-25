@@ -102,18 +102,18 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         val params = flutterView.layoutParams as LayoutParams
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                Overlay.lastX = event.rawX
-                Overlay.lastY = event.rawY
+                Overlay.x = event.rawX
+                Overlay.y = event.rawY
             }
     
             MotionEvent.ACTION_MOVE -> {
-                val dx = event.rawX - Overlay.lastX
-                val dy = event.rawY - Overlay.lastY
+                val dx = event.rawX - Overlay.x
+                val dy = event.rawY - Overlay.y
                 if (dx * dx + dy * dy < 25) {
                     return false
                 }
-                Overlay.lastX = event.rawX
-                Overlay.lastY = event.rawY
+                Overlay.x = event.rawX
+                Overlay.y = event.rawY
                 val finalX = params.x + dx.toInt()
                 val finalY = params.y + dy.toInt()
                 params.x = finalX

@@ -169,13 +169,18 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
-            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
-            params.width = call.argument<Int>("width") ?: Overlay.width
-            params.height = call.argument<Int>("height") ?: Overlay.height
-            params.x = call.argument<Int>("x") ?: Overlay.lastX.toInt()
-            params.y = call.argument<Int>("y") ?: Overlay.lastY.toInt()
+            Overlay.width = call.argument<Int>("width") ?: Overlay.width
+            Overlay.height = call.argument<Int>("height") ?: Overlay.height
+            Overlay.x = call.argument<Float>("x") ?: Overlay.x
+            Overlay.y = call.argument<Float>("y") ?: Overlay.y
             Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
             Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
+
+            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
+            params.width = Overlay.width
+            params.height = Overlay.height
+            params.x = Overlay.x.toInt()
+            params.y = Overlay.y.toInt()
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, params
             )
@@ -188,8 +193,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
-                        "x" to Overlay.lastX,
-                        "y" to Overlay.lastY
+                        "x" to Overlay.x,
+                        "y" to Overlay.y
                     )
                 )
             )

@@ -13,7 +13,7 @@ object Overlay {
     var closeWhenTapBackButton = false
     var draggable = false
     var snapping = false
-    var lastX = 0.0f
-    var lastY = 0.0f
+    var x = 0.0f
+    var y = 0.0f
     var entryPointMethodName: String = ""
 }

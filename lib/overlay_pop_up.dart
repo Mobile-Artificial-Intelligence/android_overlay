@@ -111,8 +111,8 @@ class OverlayPopUp {
   static Future<bool> updateOverlay({
     int? height,
     int? width,
-    double? x,
-    double? y,
+    int? x,
+    int? y,
     bool? draggable,
     bool? snapping,
   }) async {
