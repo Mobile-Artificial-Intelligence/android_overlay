@@ -39,17 +39,22 @@ class OverlayPopUp {
   /// [screenOrientation] by default is portrait its param define the overlay orientation.
   ///
   static Future<bool> showOverlay({
+    double? x,
+    double? y,
     int? height,
     int? width,
     OverlayAlignment? alignment,
-    OverlayFlag? backgroundBehavior,
-    ScreenOrientation? screenOrientation,
-    bool? closeWhenTapBackButton = false,
     bool? draggable = false,
     bool? snapping = false,
     String? entryPointMethodName,
   }) async {
     final result = await _methodChannel.invokeMethod<bool?>('showOverlay', {
+      /// the x position of the overlay
+      'x': x,
+
+      /// the y position of the overlay
+      'y': y,
+
       /// is not required by default is MATCH_PARENT
       'height': height,
 
@@ -58,15 +63,6 @@ class OverlayPopUp {
 
       /// is not required by default is CENTER for more info see: https://developer.android.com/reference/android/view/Gravity
       'alignment': alignment?.value,
-
-      /// by default is focusable flag that is you can take focus inside a overlay for example inside a textfield and [tapThrough] you can tap through the overlay background even if has MATCH_PARENT sizes.
-      'backgroundBehavior': backgroundBehavior?.value,
-
-      /// by default is portrait its param define the overlay orientation.
-      'screenOrientation': screenOrientation?.value,
-
-      /// by default is false its param define if overlay will close when user tap back button.
-      'closeWhenTapBackButton': closeWhenTapBackButton,
 
       /// by default is false therefore the overlay can´t be dragged.
       'draggable': draggable,
@@ -109,26 +105,25 @@ class OverlayPopUp {
   /// update overlay layout
   ///
   static Future<bool> updateOverlay({
+    double? x,
+    double? y,
     int? height,
     int? width,
-    int? x,
-    int? y,
     bool? draggable,
     bool? snapping,
   }) async {
-    final result =
-        await _methodChannel.invokeMethod<bool?>('updateOverlay', {
-      /// the new value for layout height
-      'height': height,
-
-      /// the new value for layout width
-      'width': width,
-
+    final result = await _methodChannel.invokeMethod<bool?>('updateOverlay', {
       /// the new value for layout x position
       'x': x,
 
       /// the new value for layout y position
       'y': y,
+
+      /// the new value for layout height
+      'height': height,
+
+      /// the new value for layout width
+      'width': width,
 
       /// by default is false therefore the overlay can´t be dragged.
       'draggable': draggable,
@@ -205,20 +200,4 @@ enum OverlayAlignment {
 
   final int value;
   const OverlayAlignment(this.value);
-}
-
-enum OverlayFlag {
-  focusable(1),
-  tapThrough(0);
-
-  final int value;
-  const OverlayFlag(this.value);
-}
-
-enum ScreenOrientation {
-  landscape(0),
-  portrait(1);
-
-  final int value;
-  const ScreenOrientation(this.value);
 }

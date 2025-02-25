@@ -43,16 +43,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
             return
         }
         engine.lifecycleChannel.appIsResumed()
-        flutterView = object : FlutterView(applicationContext, FlutterTextureView(applicationContext)) {
-            override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-                return if (event.keyCode == KeyEvent.KEYCODE_BACK && Overlay.closeWhenTapBackButton) {
-                    windowManager?.removeView(flutterView)
-                    stopService(Intent(baseContext, OverlayService::class.java))
-                    isActive = false
-                    true
-                } else super.dispatchKeyEvent(event)
-            }
-        }
+        flutterView = object : FlutterView(applicationContext, FlutterTextureView(applicationContext)) {}
         flutterView.attachToFlutterEngine(engine)
         flutterView.fitsSystemWindows = true
         flutterView.setBackgroundColor(Color.TRANSPARENT)
@@ -62,15 +53,13 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
             Overlay.width,
             Overlay.height,
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            if (Overlay.backgroundBehavior == 1) WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN else
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSPARENT
         )
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
             windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         }
         windowConfig.gravity = Overlay.alignment
-        windowConfig.screenOrientation = Overlay.screenOrientation
         windowManager?.addView(flutterView, windowConfig)
         isActive = true
         println("[OverlayPopUp] Overlay successfully initialized.")

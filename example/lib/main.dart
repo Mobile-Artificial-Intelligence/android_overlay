@@ -83,9 +83,7 @@ class _MyAppState extends State<MyApp> {
                       isActive = await OverlayPopUp.showOverlay(
                         width: 120,
                         height: 120,
-                        screenOrientation: ScreenOrientation.portrait,
                         alignment: OverlayAlignment.left,
-                        closeWhenTapBackButton: true,
                         draggable: true,
                         entryPointMethodName: 'customOverlay',
                       );

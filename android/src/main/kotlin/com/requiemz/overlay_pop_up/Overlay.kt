@@ -5,15 +5,12 @@ import android.view.WindowManager
 import android.view.Gravity
 
 object Overlay {
+    var x = 0.0f
+    var y = 0.0f
     var height: Int = WindowManager.LayoutParams.MATCH_PARENT
     var width: Int = WindowManager.LayoutParams.MATCH_PARENT
     var alignment = Gravity.CENTER
-    var backgroundBehavior = 1
-    var screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    var closeWhenTapBackButton = false
     var draggable = false
     var snapping = false
-    var x = 0.0f
-    var y = 0.0f
     var entryPointMethodName: String = ""
 }

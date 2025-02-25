@@ -102,12 +102,11 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun showOverlay(call: MethodCall, result: Result) {
         val i = Intent(context, OverlayService::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_SINGLE_TOP
+        Overlay.x = call.argument<Float>("x") ?: Overlay.x
+        Overlay.y = call.argument<Float>("y") ?: Overlay.y
         Overlay.width = call.argument<Int>("width") ?: Overlay.width
         Overlay.height = call.argument<Int>("height") ?: Overlay.height
         Overlay.alignment = call.argument<Int>("alignment") ?: Overlay.alignment
-        Overlay.backgroundBehavior = call.argument<Int>("backgroundBehavior") ?: Overlay.backgroundBehavior
-        Overlay.screenOrientation = call.argument<Int>("screenOrientation") ?: Overlay.screenOrientation
-        Overlay.closeWhenTapBackButton = call.argument<Boolean>("closeWhenTapBackButton") ?: Overlay.closeWhenTapBackButton
         Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
         Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
         Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
@@ -169,10 +168,10 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
-            Overlay.width = call.argument<Int>("width") ?: Overlay.width
-            Overlay.height = call.argument<Int>("height") ?: Overlay.height
             Overlay.x = call.argument<Float>("x") ?: Overlay.x
             Overlay.y = call.argument<Float>("y") ?: Overlay.y
+            Overlay.width = call.argument<Int>("width") ?: Overlay.width
+            Overlay.height = call.argument<Int>("height") ?: Overlay.height
             Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
             Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
 
