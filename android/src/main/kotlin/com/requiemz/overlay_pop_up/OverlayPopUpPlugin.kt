@@ -112,8 +112,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         PopUp.screenOrientation = call.argument<Int>("screenOrientation") ?: PopUp.screenOrientation
         PopUp.closeWhenTapBackButton =
             call.argument<Boolean>("closeWhenTapBackButton") ?: PopUp.closeWhenTapBackButton
-        PopUp.isDraggable =
-            call.argument<Boolean>("isDraggable") ?: PopUp.isDraggable
+        PopUp.draggable =
+            call.argument<Boolean>("draggable") ?: PopUp.draggable
         PopUp.entryPointMethodName =
             call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
         if (context != null) PopUp.savePreferences(context!!)
@@ -180,7 +180,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             params.height = call.argument<Int>("height") ?: WindowManager.LayoutParams.MATCH_PARENT
             params.x = call.argument<Int>("x") ?: OverlayService.lastX.toInt()
             params.y = call.argument<Int>("y") ?: OverlayService.lastY.toInt()
-            PopUp.isDraggable = call.argument<Boolean>("isDraggable") ?: PopUp.isDraggable
+            PopUp.draggable = call.argument<Boolean>("draggable") ?: PopUp.draggable
             OverlayService.windowManager!!.updateViewLayout(
                 OverlayService.flutterView, params
             )
@@ -189,7 +189,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun getOverlayPosition(result: Result) {
-        if (PopUp.isDraggable) {
+        if (PopUp.draggable) {
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(

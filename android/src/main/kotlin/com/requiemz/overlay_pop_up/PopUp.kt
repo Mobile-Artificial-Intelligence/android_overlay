@@ -14,7 +14,7 @@ object PopUp {
     var backgroundBehavior = 1
     var screenOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     var closeWhenTapBackButton = false
-    var isDraggable = false
+    var draggable = false
     var lastX = 0
     var lastY = 0
     var entryPointMethodName: String = ""
@@ -33,7 +33,7 @@ object PopUp {
         sharedPref.edit().putInt("backgroundBehavior", backgroundBehavior).apply()
         sharedPref.edit().putInt("screenOrientation", screenOrientation).apply()
         sharedPref.edit().putBoolean("closeWhenTapBackButton", closeWhenTapBackButton).apply()
-        sharedPref.edit().putBoolean("isDraggable", isDraggable).apply()
+        sharedPref.edit().putBoolean("draggable", draggable).apply()
         sharedPref.edit().putInt("lastX", lastX).apply()
         sharedPref.edit().putInt("lastY", lastY).apply()
         sharedPref.edit().putString("entryPointName", entryPointMethodName).apply()
@@ -53,7 +53,7 @@ object PopUp {
         screenOrientation = sharedPref.getInt("screenOrientation", screenOrientation)
         closeWhenTapBackButton =
             sharedPref.getBoolean("closeWhenTapBackButton", closeWhenTapBackButton)
-        isDraggable = sharedPref.getBoolean("isDraggable", isDraggable)
+        draggable = sharedPref.getBoolean("draggable", draggable)
         lastX = sharedPref.getInt("lastX", lastX)
         lastY = sharedPref.getInt("lastY", lastY)
         entryPointMethodName = sharedPref.getString("entryPointName", entryPointMethodName) ?: ""

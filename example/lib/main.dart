@@ -86,7 +86,7 @@ class _MyAppState extends State<MyApp> {
                         screenOrientation: ScreenOrientation.portrait,
                         horizontalAlignment: Gravity.left,
                         closeWhenTapBackButton: true,
-                        isDraggable: true,
+                        draggable: true,
                         entryPointMethodName: 'customOverlay',
                       );
                       setState(() {
@@ -127,7 +127,7 @@ class _MyAppState extends State<MyApp> {
                     await OverlayPopUp.updateOverlay(
                       width: 20, 
                       height: 20,
-                      isDraggable: true,
+                      draggable: true,
                     );
                   }
                 },

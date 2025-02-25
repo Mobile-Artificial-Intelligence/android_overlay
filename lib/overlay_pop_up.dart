@@ -46,7 +46,7 @@ class OverlayPopUp {
     OverlayFlag? backgroundBehavior,
     ScreenOrientation? screenOrientation,
     bool? closeWhenTapBackButton = false,
-    bool? isDraggable = false,
+    bool? draggable = false,
     String? entryPointMethodName,
   }) async {
     final result = await _methodChannel.invokeMethod<bool?>('showOverlay', {
@@ -72,7 +72,7 @@ class OverlayPopUp {
       'closeWhenTapBackButton': closeWhenTapBackButton,
 
       /// by default is false therefore the overlay can´t be dragged.
-      'isDraggable': isDraggable,
+      'draggable': draggable,
 
       /// by default `overlayPopUp`.
       'entryPointMethodName': entryPointMethodName,
@@ -113,7 +113,7 @@ class OverlayPopUp {
     int? width,
     double? x,
     double? y,
-    bool isDraggable = false,
+    bool draggable = false,
   }) async {
     final result =
         await _methodChannel.invokeMethod<bool?>('updateOverlay', {
@@ -130,7 +130,7 @@ class OverlayPopUp {
       'y': y,
 
       /// by default is false therefore the overlay can´t be dragged.
-      'isDraggable': isDraggable,
+      'draggable': draggable,
     });
     return result ?? false;
   }

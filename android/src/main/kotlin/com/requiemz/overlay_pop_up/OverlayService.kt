@@ -70,7 +70,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
             windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         }
-        windowConfig.gravity = PopUp.verticalAlignment or PopUp.horizontalAlignment
+        windowConfig.gravity = PopUp.horizontalAlignment
         windowConfig.screenOrientation = PopUp.screenOrientation
         windowManager?.addView(flutterView, windowConfig)
         loadLastPosition()
@@ -100,7 +100,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        if (!PopUp.isDraggable) return false
+        if (!PopUp.draggable) return false
         val windowConfig = flutterView.layoutParams as LayoutParams
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
