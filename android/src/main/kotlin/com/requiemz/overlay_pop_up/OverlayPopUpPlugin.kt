@@ -193,8 +193,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
-                        "x" to (OverlayService.lastX ?: 0),
-                        "y" to (OverlayService.lastY ?: 0)
+                        "x" to OverlayService.lastX,
+                        "y" to OverlayService.lastY
                     )
                 )
             )

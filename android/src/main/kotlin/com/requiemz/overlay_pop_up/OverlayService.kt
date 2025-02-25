@@ -62,15 +62,13 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         val windowConfig = WindowManager.LayoutParams(
             PopUp.width,
             PopUp.height,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_PHONE,
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
             if (PopUp.backgroundBehavior == 1) WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN else
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             PixelFormat.TRANSPARENT
         )
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O_MR1) {
-            windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            windowConfig.flags = windowConfig.flags or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
         }
         windowConfig.gravity = PopUp.verticalAlignment or PopUp.horizontalAlignment
         windowConfig.screenOrientation = PopUp.screenOrientation
