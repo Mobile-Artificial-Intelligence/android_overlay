@@ -174,7 +174,7 @@ class AndroidOverlay {
       _mssgController.close();
     } catch (e) {
       debugPrint(
-          '[OverlayPopUp] Something went wrong when close overlay pop up: $e');
+          '[AndroidOverlay] Something went wrong when close overlay pop up: $e');
     }
   }
 

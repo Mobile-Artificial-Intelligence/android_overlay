@@ -40,7 +40,7 @@ class AndroidOverlayService : Service(), BasicMessageChannel.MessageHandler<Any?
         super.onCreate()
         val engine = FlutterEngineCache.getInstance().get(AndroidOverlayPlugin.CACHE_ENGINE_ID)
         if (engine == null) {
-            println("[OverlayPopUp] FlutterEngine not available in cache. Stopping service.")
+            println("[AndroidOverlay] FlutterEngine not available in cache. Stopping service.")
             stopSelf()
             return
         }
@@ -64,7 +64,7 @@ class AndroidOverlayService : Service(), BasicMessageChannel.MessageHandler<Any?
         windowConfig.gravity = Overlay.alignment
         windowManager?.addView(flutterView, windowConfig)
         isActive = true
-        println("[OverlayPopUp] Overlay successfully initialized.")
+        println("[AndroidOverlay] Overlay successfully initialized.")
     }
 
     override fun onDestroy() {
@@ -84,7 +84,7 @@ class AndroidOverlayService : Service(), BasicMessageChannel.MessageHandler<Any?
             )
             overlayMessageChannel.send(message, reply)
         } else {
-            println("[OverlayPopUp] FlutterEngine not available in cache.")
+            println("[AndroidOverlay] FlutterEngine not available in cache.")
             reply.reply(null)
         }
     }
