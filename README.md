@@ -92,7 +92,7 @@ void androidOverlay() {
 - `alignment` is not required by default is CENTER for more info see: <https://developer.android.com/reference/android/view/Gravity>
 - `snapping` by default is false therefore the overlay can´t be snapped to the edges of the screen.
 - `draggable`  by default is false therefore the overlay can´t be dragged.
-- `entryPointMethodName` by default is 'androidOverlay' if you want you can change it
+- `entryPoint` by default is 'androidOverlay' if you want you can change it
 
   ```dart
   await AndroidOverlay.showOverlay();

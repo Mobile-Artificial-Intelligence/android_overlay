@@ -109,7 +109,7 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         Overlay.alignment = call.argument<Int>("alignment") ?: Overlay.alignment
         Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
         Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
-        Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: ANDROID_OVERLAY_ENTRY_BY_DEFAULT
+        Overlay.entryPoint = call.argument<String>("entryPoint") ?: ANDROID_OVERLAY_ENTRY_BY_DEFAULT
 
         // Initialize and cache the FlutterEngine before starting the service
         initializeAndCacheFlutterEngine()
@@ -130,7 +130,7 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             val engineGroup = FlutterEngineGroup(context!!)
             val dartEntryPoint = DartExecutor.DartEntrypoint(
                 FlutterInjector.instance().flutterLoader().findAppBundlePath(),
-                Overlay.entryPointMethodName
+                Overlay.entryPoint
             )
             val flutterEngine = engineGroup.createAndRunEngine(context!!, dartEntryPoint)
             FlutterEngineCache.getInstance().put(CACHE_ENGINE_ID, flutterEngine)

@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
                         height: 120,
                         alignment: OverlayAlignment.center,
                         draggable: true,
-                        entryPointMethodName: 'customOverlay',
+                        entryPoint: customOverlay,
                       );
                       setState(() {
                         isActive = isActive;
@@ -159,7 +159,7 @@ class _MyAppState extends State<MyApp> {
 
 ///
 /// Is required has `@pragma("vm:entry-point")` and the method name by default is `androidOverlay`
-/// if you change the method name you should pass it as `entryPointMethodName` in showOverlay method
+/// if you change the method name you should pass it as `entryPoint` in showOverlay method
 ///
 @pragma("vm:entry-point")
 void customOverlay() {

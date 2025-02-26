@@ -48,7 +48,7 @@ class AndroidOverlay {
     OverlayAlignment? alignment,
     bool? draggable = false,
     bool? snapping = false,
-    String? entryPointMethodName,
+    VoidCallback? entryPoint,
   }) async {
     final result = await _methodChannel.invokeMethod<bool?>('showOverlay', {
       /// the x position of the overlay
@@ -73,7 +73,7 @@ class AndroidOverlay {
       'snapping': snapping,
 
       /// by default `androidOverlay`.
-      'entryPointMethodName': entryPointMethodName,
+      'entryPoint': _extractFunctionName(entryPoint.toString()),
     });
     return result ?? false;
   }
@@ -168,6 +168,12 @@ class AndroidOverlay {
       debugPrint(
           '[OverlayPopUp] Something went wrong when close overlay pop up: $e');
     }
+  }
+
+  static String _extractFunctionName(String callbackString) {
+    RegExp regex = RegExp(r"Function '([^']+)'");
+    Match? match = regex.firstMatch(callbackString);
+    return match != null ? match.group(1)! : 'Unknown';
   }
 }
 

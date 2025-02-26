@@ -12,7 +12,7 @@ object Overlay {
     var alignment = Gravity.CENTER
     var draggable = false
     var snapping = false
-    var entryPointMethodName: String = ""
+    var entryPoint: String = ""
 
     fun getCenterX(screenWidth: Int): Int {
         if (alignment == Gravity.LEFT) {
