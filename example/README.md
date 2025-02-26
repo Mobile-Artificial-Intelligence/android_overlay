@@ -1,6 +1,6 @@
-# overlay_pop_up_example
+# android_overlay_example
 
-Demonstrates how to use the overlay_pop_up plugin.
+Demonstrates how to use the android_overlay plugin.
 
 ## Getting Started
 

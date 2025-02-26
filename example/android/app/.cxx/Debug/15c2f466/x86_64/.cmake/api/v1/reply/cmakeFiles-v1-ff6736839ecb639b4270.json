@@ -37,7 +37,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeSystem.cmake"
+			"path" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeSystem.cmake"
 		},
 		{
 			"isExternal" : true,
@@ -303,7 +303,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCCompiler.cmake"
+			"path" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -537,7 +537,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCXXCompiler.cmake"
+			"path" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -688,7 +688,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCCompiler.cmake"
+			"path" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -782,13 +782,13 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCXXCompiler.cmake"
+			"path" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64/CMakeFiles/3.22.1-g37088a8/CMakeCXXCompiler.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/x86_64",
+		"build" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/x86_64",
 		"source" : "/opt/homebrew/Caskroom/flutter/3.22.1/flutter/packages/flutter_tools/gradle/src/main/groovy"
 	},
 	"version" : 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:overlay_pop_up/overlay_pop_up.dart';
+import 'package:android_overlay/android_overlay.dart';
 
 void main() {
   runApp(const MyApp());

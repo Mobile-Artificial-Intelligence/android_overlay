@@ -34,9 +34,9 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private var pendingResult: Result? = null
 
     companion object {
-        const val OVERLAY_CHANNEL_NAME = "overlay_pop_up"
-        const val OVERLAY_MESSAGE_CHANNEL_NAME = "overlay_pop_up_mssg"
-        const val CACHE_ENGINE_ID = "overlay_pop_up_engine_id"
+        const val OVERLAY_CHANNEL_NAME = "android_overlay"
+        const val OVERLAY_MESSAGE_CHANNEL_NAME = "android_overlay_mssg"
+        const val CACHE_ENGINE_ID = "android_overlay_engine_id"
         const val OVERLAY_POP_UP_ENTRY_BY_DEFAULT = "overlayPopUp"
         const val PERMISSION_CODE = 1996
     }

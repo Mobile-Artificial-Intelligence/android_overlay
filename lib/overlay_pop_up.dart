@@ -8,9 +8,9 @@ class OverlayPopUp {
 
   static final StreamController _mssgController = StreamController.broadcast();
 
-  static const _methodChannel = MethodChannel('overlay_pop_up');
+  static const _methodChannel = MethodChannel('android_overlay');
   static const _messageChannel =
-      BasicMessageChannel('overlay_pop_up_mssg', JSONMessageCodec());
+      BasicMessageChannel('android_overlay_mssg', JSONMessageCodec());
 
   ///
   /// returns true when overlay permission is alreary granted
@@ -164,39 +164,15 @@ class OverlayPopUp {
       _mssgController.close();
     } catch (e) {
       debugPrint(
-          '[OverlayPopUp] Something wen wrong when close overlay pop up: $e');
+          '[OverlayPopUp] Something went wrong when close overlay pop up: $e');
     }
   }
 }
 
 enum OverlayAlignment {
-  axisClip(8),
-  axisPullAfter(4),
-  axisPullBefore(2),
-  axisSpecified(1),
-  axisxShift(0),
-  axisyShift(4),
-  bottom(80),
   center(17),
-  centerHorizontal(1),
-  centerVertical(16),
-  clipHorizontal(8),
-  clipVertical(128),
-  displayClipHorizontal(16777216),
-  displayClipVertical(268435456),
-  end(8388613),
-  fill(119),
-  fillHorizontal(7),
-  fillVertical(112),
-  horizontalGravityMask(7),
   left(3),
-  noGravity(0),
-  relativeHorizontalGravityMask(8388615),
-  relativeLayoutDirection(8388608),
-  right(5),
-  start(8388611),
-  top(48),
-  verticalGravityMask(112);
+  right(5);
 
   final int value;
   const OverlayAlignment(this.value);
