@@ -1,4 +1,4 @@
-package com.requiemz.overlay_pop_up
+package com.danemadsen.android_overlay
 
 import android.content.pm.ActivityInfo
 import android.view.WindowManager

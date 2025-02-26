@@ -18,7 +18,7 @@ add this to your AndroidManifest.xml
  <application>
         ...
         <service
-           android:name="com.requiemz.overlay_pop_up.OverlayService"
+           android:name="com.danemadsen.android_overlay.AndroidOverlayService"
            android:exported="false" />
     </application>
 ```
@@ -33,7 +33,7 @@ applications that target SDK 34 and use foreground service should include foregr
  <application>
         ...
         <service
-           android:name="com.requiemz.overlay_pop_up.OverlayService"
+           android:name="com.danemadsen.android_overlay.AndroidOverlayService"
            android:exported="false"
            <!-- add this -->
            android:foregroundServiceType="camera, dataSync, location, etc" />

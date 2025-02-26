@@ -1,4 +1,4 @@
-package com.requiemz.overlay_pop_up
+package com.danemadsen.android_overlay
 
 import android.app.Activity
 import android.content.Context
@@ -25,7 +25,7 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.common.PluginRegistry.ActivityResultListener
 
 
-class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
+class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     BasicMessageChannel.MessageHandler<Any?>, PluginRegistry.ActivityResultListener {
     private var channel: MethodChannel? = null
     private var context: Context? = null
@@ -59,7 +59,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             "checkPermission" -> result.success(checkPermission())
             "showOverlay" -> showOverlay(call, result)
             "closeOverlay" -> closeOverlay(result)
-            "isActive" -> result.success(OverlayService.isActive)
+            "isActive" -> result.success(AndroidOverlayService.isActive)
             "getOverlayPosition" -> getOverlayPosition(result)
             "updateOverlay" -> updateOverlay(call, result)
             else -> result.notImplemented()
@@ -100,7 +100,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun showOverlay(call: MethodCall, result: Result) {
-        val i = Intent(context, OverlayService::class.java)
+        val i = Intent(context, AndroidOverlayService::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_SINGLE_TOP
         Overlay.x = call.argument<Double>("x")?.toFloat() ?: Overlay.x
         Overlay.y = call.argument<Double>("y")?.toFloat() ?: Overlay.y
@@ -126,7 +126,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun initializeAndCacheFlutterEngine() {
         val cachedEngine = FlutterEngineCache.getInstance().get(CACHE_ENGINE_ID)
         if (cachedEngine == null) {
-            println("[OverlayPopUpPlugin] Creating and caching FlutterEngine.")
+            println("[AndroidOverlayPlugin] Creating and caching FlutterEngine.")
             val engineGroup = FlutterEngineGroup(context!!)
             val dartEntryPoint = DartExecutor.DartEntrypoint(
                 FlutterInjector.instance().flutterLoader().findAppBundlePath(),
@@ -135,16 +135,16 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             val flutterEngine = engineGroup.createAndRunEngine(context!!, dartEntryPoint)
             FlutterEngineCache.getInstance().put(CACHE_ENGINE_ID, flutterEngine)
         } else {
-            println("[OverlayPopUpPlugin] FlutterEngine already cached.")
+            println("[AndroidOverlayPlugin] FlutterEngine already cached.")
         }
     }
 
     private fun closeOverlay(result: Result) {
-        if (OverlayService.isActive) {
-            val i = Intent(context, OverlayService::class.java)
+        if (AndroidOverlayService.isActive) {
+            val i = Intent(context, AndroidOverlayService::class.java)
             i.putExtra("closeOverlay", true)
             context?.stopService(i)
-            OverlayService.isActive = false
+            AndroidOverlayService.isActive = false
             result.success(true)
             return
         }
@@ -154,7 +154,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     override fun onMessage(message: Any?, reply: BasicMessageChannel.Reply<Any?>) {
         val engine = FlutterEngineCache.getInstance().get(CACHE_ENGINE_ID)
         if (engine == null) {
-            println("[OverlayPopUpPlugin] FlutterEngineCache returned null for CACHE_ENGINE_ID")
+            println("[AndroidOverlayPlugin] FlutterEngineCache returned null for CACHE_ENGINE_ID")
             reply.reply(null) // Respond to the Dart side with an error or null
             return
         }
@@ -167,8 +167,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     private fun updateOverlay(call: MethodCall, result: Result) {
-        if (OverlayService.windowManager != null) {
-            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
+        if (AndroidOverlayService.windowManager != null) {
+            val params = AndroidOverlayService.flutterView.layoutParams as WindowManager.LayoutParams
 
             Overlay.x = call.argument<Double>("x")?.toFloat() ?: params.x.toFloat()
             Overlay.y = call.argument<Double>("y")?.toFloat() ?: params.y.toFloat()
@@ -181,8 +181,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             params.height = Overlay.height
             params.x = Overlay.x.toInt()
             params.y = Overlay.y.toInt()
-            OverlayService.windowManager!!.updateViewLayout(
-                OverlayService.flutterView, params
+            AndroidOverlayService.windowManager!!.updateViewLayout(
+                AndroidOverlayService.flutterView, params
             )
             result.success(true)
         } else result.notImplemented()
@@ -190,7 +190,7 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun getOverlayPosition(result: Result) {
         if (Overlay.draggable) {
-            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
+            val params = AndroidOverlayService.flutterView.layoutParams as WindowManager.LayoutParams
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
@@ -208,12 +208,12 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        if (OverlayService.windowManager != null) {
-            val windowConfig = OverlayService.flutterView.layoutParams
+        if (AndroidOverlayService.windowManager != null) {
+            val windowConfig = AndroidOverlayService.flutterView.layoutParams
             windowConfig.width = Overlay.width
             windowConfig.height = Overlay.height
-            OverlayService.windowManager!!.updateViewLayout(
-                OverlayService.flutterView,
+            AndroidOverlayService.windowManager!!.updateViewLayout(
+                AndroidOverlayService.flutterView,
                 windowConfig
             )
         }

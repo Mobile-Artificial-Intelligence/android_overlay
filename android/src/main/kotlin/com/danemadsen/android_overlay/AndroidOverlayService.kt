@@ -1,4 +1,4 @@
-package com.requiemz.overlay_pop_up
+package com.danemadsen.android_overlay
 
 import kotlin.math.hypot
 import android.annotation.SuppressLint
@@ -21,7 +21,7 @@ import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.plugin.common.BasicMessageChannel
 import io.flutter.plugin.common.JSONMessageCodec
 
-class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View.OnTouchListener {
+class AndroidOverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View.OnTouchListener {
     companion object {
         var isActive: Boolean = false
         val handler = Handler(Looper.getMainLooper())
@@ -38,7 +38,7 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate() {
         super.onCreate()
-        val engine = FlutterEngineCache.getInstance().get(OverlayPopUpPlugin.CACHE_ENGINE_ID)
+        val engine = FlutterEngineCache.getInstance().get(AndroidOverlayPlugin.CACHE_ENGINE_ID)
         if (engine == null) {
             println("[OverlayPopUp] FlutterEngine not available in cache. Stopping service.")
             stopSelf()
@@ -75,11 +75,11 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
     }
 
     override fun onMessage(message: Any?, reply: BasicMessageChannel.Reply<Any?>) {
-        val engine = FlutterEngineCache.getInstance().get(OverlayPopUpPlugin.CACHE_ENGINE_ID)
+        val engine = FlutterEngineCache.getInstance().get(AndroidOverlayPlugin.CACHE_ENGINE_ID)
         if (engine != null) {
             val overlayMessageChannel = BasicMessageChannel(
                 engine.dartExecutor,
-                OverlayPopUpPlugin.OVERLAY_MESSAGE_CHANNEL_NAME,
+                AndroidOverlayPlugin.OVERLAY_MESSAGE_CHANNEL_NAME,
                 JSONMessageCodec.INSTANCE
             )
             overlayMessageChannel.send(message, reply)
