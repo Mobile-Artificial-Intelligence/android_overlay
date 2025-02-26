@@ -30,7 +30,11 @@ add this to your AndroidManifest.xml
     ...
     <service
        android:name="com.danemadsen.android_overlay.AndroidOverlayService"
-       android:exported="false" />
+       android:exported="false"
+       android:foregroundServiceType="specialUse" >
+       <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="explanation_for_special_use"/>
+    </service>
 </application>
 ```
 
