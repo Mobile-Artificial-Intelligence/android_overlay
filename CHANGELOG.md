@@ -10,4 +10,8 @@
 ## 0.0.3
 
 - Adjust permissions
-- Change repository url
+- Change repository url 
+
+## 0.0.4
+
+- Add `backToApp` method

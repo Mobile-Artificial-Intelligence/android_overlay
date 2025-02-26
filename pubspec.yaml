@@ -1,6 +1,6 @@
 name: android_overlay
 description: A Flutter plugin for displaying an overlay on top of the Android system UI.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/Mobile-Artificial-Intelligence/android_overlay
 
 environment:

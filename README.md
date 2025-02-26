@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  android_overlay: ^0.0.3
+  android_overlay: ^0.0.4
 ```
 
 Now in your Dart code, you can use:
@@ -112,6 +112,12 @@ void androidOverlay() {
   ```
 
   returns the overlay status true = open, false = closed
+
+  ```dart
+  await AndroidOverlay.backToApp();
+  ```
+
+  returns true if successfully navigated to the app
 
   ```dart
   await AndroidOverlay.isActive();
