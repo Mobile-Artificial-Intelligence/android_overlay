@@ -123,6 +123,8 @@ class _MyAppState extends State<MyApp> {
                 onPressed: () async {
                   if (await OverlayPopUp.isActive()) {
                     await OverlayPopUp.updateOverlay(
+                      x: 0,
+                      y: 0,
                       snapping: true
                     );
                   }

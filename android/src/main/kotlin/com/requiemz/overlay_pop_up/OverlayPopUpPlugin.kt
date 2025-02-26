@@ -102,8 +102,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
     private fun showOverlay(call: MethodCall, result: Result) {
         val i = Intent(context, OverlayService::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_SINGLE_TOP
-        Overlay.x = call.argument<Float>("x") ?: Overlay.x
-        Overlay.y = call.argument<Float>("y") ?: Overlay.y
+        Overlay.x = call.argument<Double>("x")?.toFloat() ?: Overlay.x
+        Overlay.y = call.argument<Double>("y")?.toFloat() ?: Overlay.y
         Overlay.width = call.argument<Int>("width") ?: Overlay.width
         Overlay.height = call.argument<Int>("height") ?: Overlay.height
         Overlay.alignment = call.argument<Int>("alignment") ?: Overlay.alignment
@@ -170,8 +170,8 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         if (OverlayService.windowManager != null) {
             val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
 
-            Overlay.x = call.argument<Float>("x") ?: params.x.toFloat()
-            Overlay.y = call.argument<Float>("y") ?: params.y.toFloat()
+            Overlay.x = call.argument<Double>("x")?.toFloat() ?: params.x.toFloat()
+            Overlay.y = call.argument<Double>("y")?.toFloat() ?: params.y.toFloat()
             Overlay.width = call.argument<Int>("width") ?: Overlay.width
             Overlay.height = call.argument<Int>("height") ?: Overlay.height
             Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
