@@ -129,11 +129,8 @@ class OverlayService : Service(), BasicMessageChannel.MessageHandler<Any?>, View
         val displayMetrics = applicationContext.resources.displayMetrics
         val screenWidth = displayMetrics.widthPixels
         val overlayWidth = flutterView.width
-
-        // Determine the closest edge (left or right)
-        val leftEdge = 0
-        val rightEdge = screenWidth - overlayWidth
-        val snapX = if (params.x < screenWidth / 2) leftEdge else rightEdge
+        val width = screenWidth - overlayWidth
+        val snapX = Overlay.getSnapX(params.x, width)
 
         // Animate to snap position
         animateOverlayToPosition(params, snapX, params.y)

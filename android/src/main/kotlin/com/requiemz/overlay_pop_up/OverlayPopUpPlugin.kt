@@ -189,11 +189,12 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun getOverlayPosition(result: Result) {
         if (Overlay.draggable) {
+            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
             result.success(
                 mapOf(
                     "overlayPosition" to mapOf(
-                        "x" to Overlay.x,
-                        "y" to Overlay.y
+                        "x" to params.x,
+                        "y" to params.y
                     )
                 )
             )

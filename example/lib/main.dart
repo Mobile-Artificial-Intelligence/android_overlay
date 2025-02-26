@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
                       isActive = await OverlayPopUp.showOverlay(
                         width: 120,
                         height: 120,
-                        alignment: OverlayAlignment.left,
+                        alignment: OverlayAlignment.center,
                         draggable: true,
                         entryPointMethodName: 'customOverlay',
                       );

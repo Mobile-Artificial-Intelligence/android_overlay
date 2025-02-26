@@ -13,4 +13,40 @@ object Overlay {
     var draggable = false
     var snapping = false
     var entryPointMethodName: String = ""
+
+    fun getCenterX(screenWidth: Int): Int {
+        if (alignment == Gravity.LEFT) {
+            return screenWidth / 2
+        } 
+        else if (alignment == Gravity.RIGHT) {
+            return -(screenWidth / 2)
+        }
+        return 0
+    }
+
+    fun getLeftEdge(screenWidth: Int): Int {
+        if (alignment == Gravity.LEFT) {
+            return 0
+        } 
+        else if (alignment == Gravity.RIGHT) {
+            return -screenWidth
+        }
+        return -(screenWidth / 2)
+    }
+
+    fun getRightEdge(screenWidth: Int): Int {
+        if (alignment == Gravity.LEFT) {
+            return screenWidth
+        } 
+        else if (alignment == Gravity.RIGHT) {
+            return 0
+        }
+        return screenWidth / 2
+    }
+
+    fun getSnapX(currentX: Int, screenWidth: Int): Int {
+        val rightEdge = getRightEdge(screenWidth)
+        val leftEdge = getLeftEdge(screenWidth)
+        return if (currentX < getCenterX(screenWidth)) leftEdge else rightEdge
+    }
 }
