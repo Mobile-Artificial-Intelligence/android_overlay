@@ -6,3 +6,8 @@
 
 - Updated README.md
 - Updated CHANGELOG.md
+
+## 0.0.3
+
+- Adjust permissions
+- Change repository url
