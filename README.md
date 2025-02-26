@@ -8,7 +8,7 @@ Add this to your package's pubspec.yaml file:
 
 ```yaml
 dependencies:
-  android_overlay: ^0.0.2
+  android_overlay: ^0.0.3
 ```
 
 Now in your Dart code, you can use:
@@ -21,32 +21,35 @@ import 'package:android_overlay/android_overlay.dart';
 
 add this to your AndroidManifest.xml
 
-```dart
- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+```xml
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
 
- <application>
-        ...
-        <service
-           android:name="com.danemadsen.android_overlay.AndroidOverlayService"
-           android:exported="false" />
-    </application>
+<application>
+    ...
+    <service
+       android:name="com.danemadsen.android_overlay.AndroidOverlayService"
+       android:exported="false" />
+</application>
 ```
 
 ### Android 14
 
 applications that target SDK 34 and use foreground service should include foregroundServiceType attribute([see documentation](https://developer.android.com/about/versions/14/changes/fgs-types-required)).
 
-```dart
- <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
- <application>
-        ...
-        <service
-           android:name="com.danemadsen.android_overlay.AndroidOverlayService"
-           android:exported="false"
-           <!-- add this -->
-           android:foregroundServiceType="camera, dataSync, location, etc" />
-    </application>
+```xml
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+<application>
+    ...
+    <service
+       android:name="com.danemadsen.android_overlay.AndroidOverlayService"
+       android:exported="false"
+       <!-- add this -->
+       android:foregroundServiceType="camera, dataSync, location, etc" />
+</application>
 ```
 
 ## Flutter implementation
