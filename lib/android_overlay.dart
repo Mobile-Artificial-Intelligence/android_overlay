@@ -87,6 +87,14 @@ class AndroidOverlay {
   }
 
   ///
+  /// returns true if successfully back to app
+  /// 
+  static Future<bool?> backToApp() async {
+    final result = await _methodChannel.invokeMethod<bool?>('backToApp');
+    return result;
+  }
+
+  ///
   /// returns the overlay status true = open, false = closed
   ///
   static Future<bool> isActive() async {

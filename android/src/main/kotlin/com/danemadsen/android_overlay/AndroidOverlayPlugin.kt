@@ -59,6 +59,7 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             "checkPermission" -> result.success(checkPermission())
             "showOverlay" -> showOverlay(call, result)
             "closeOverlay" -> closeOverlay(result)
+            "backToApp" -> backToApp(result)
             "isActive" -> result.success(AndroidOverlayService.isActive)
             "getOverlayPosition" -> getOverlayPosition(result)
             "updateOverlay" -> updateOverlay(call, result)
@@ -149,6 +150,19 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
             return
         }
         result.success(true)
+    }
+
+    private fun backToApp(result: Result) {
+        val packageManager = context?.packageManager
+        val intent = packageManager?.getLaunchIntentForPackage(context?.packageName!!)
+        
+        if (intent != null) {
+            intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_NEW_TASK
+            context?.startActivity(intent)
+            result.success(true)
+        } else {
+            result.error("ERROR", "Could not find launch intent for package", null)
+        }
     }
 
     override fun onMessage(message: Any?, reply: BasicMessageChannel.Reply<Any?>) {

@@ -164,73 +164,17 @@ class _MyAppState extends State<MyApp> {
 @pragma("vm:entry-point")
 void customOverlay() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: OverlayWidget(),
+    home: FloatingActionButton(
+      shape: const CircleBorder(),
+      backgroundColor: Colors.red,
+      elevation: 0,
+      onPressed: () async {
+        await AndroidOverlay.closeOverlay();
+        await AndroidOverlay.backToApp();
+      },
+      child: const Text('X', style: TextStyle(color: Colors.white, fontSize: 20)),
+    )
   ));
-}
-
-class OverlayWidget extends StatefulWidget {
-  const OverlayWidget({super.key});
-
-  @override
-  State<OverlayWidget> createState() => OverlayWidgetState();
-}
-
-class OverlayWidgetState extends State<OverlayWidget> {
-  Map<dynamic, dynamic>? lastPosition;
-  bool open = false;
-
-  void onOpen() async {
-    lastPosition = await AndroidOverlay.getOverlayPosition();
-    await AndroidOverlay.updateOverlay(
-      x: 0,
-      y: 0,
-      width: kMatchParent,
-      height: kMatchParent,
-      draggable: false,
-      snapping: false
-    );
-    setState(() => open = !open);
-  }
-
-  void onClose() async {
-    await AndroidOverlay.updateOverlay(
-      x: lastPosition?['x'],
-      y: lastPosition?['y'],
-      width: 120,
-      height: 120,
-      draggable: true,
-      snapping: true
-    );
-    setState(() => open = !open);
-  }
-
-  @override
-  Widget build(BuildContext context) => open ? Container(
-    margin: const EdgeInsets.all(16),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
-      color: Colors.red,
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('Hello from overlay', style: TextStyle(color: Colors.white, fontSize: 20)),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: onClose,
-          child: const Text('Close', style: TextStyle(color: Colors.white)),
-        ),
-      ],
-    ),
-  ) : buildButton();
-
-  Widget buildButton() => FloatingActionButton(
-    shape: const CircleBorder(),
-    backgroundColor: Colors.red,
-    elevation: 0,
-    onPressed: onOpen,
-    child: const Text('X', style: TextStyle(color: Colors.white, fontSize: 20)),
-  );
 }
