@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class OverlayPopUp {
-  OverlayPopUp._();
+class AndroidOverlay {
+  AndroidOverlay._();
 
   static final StreamController _mssgController = StreamController.broadcast();
 

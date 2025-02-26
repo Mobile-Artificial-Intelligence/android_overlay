@@ -29,12 +29,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getOverlayStatus() async {
-    isActive = await OverlayPopUp.isActive();
+    isActive = await AndroidOverlay.isActive();
     setState(() {});
   }
 
   Future<void> getPermissionStatus() async {
-    permissionStatus = await OverlayPopUp.checkPermission();
+    permissionStatus = await AndroidOverlay.checkPermission();
     setState(() {});
   }
 
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () async {
-                  permissionStatus = await OverlayPopUp.requestPermission();
+                  permissionStatus = await AndroidOverlay.requestPermission();
                   setState(() {});
                 },
                 color: Colors.red[900],
@@ -77,10 +77,10 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () async {
-                  final permission = await OverlayPopUp.checkPermission();
+                  final permission = await AndroidOverlay.checkPermission();
                   if (permission) {
-                    if (!await OverlayPopUp.isActive()) {
-                      isActive = await OverlayPopUp.showOverlay(
+                    if (!await AndroidOverlay.isActive()) {
+                      isActive = await AndroidOverlay.showOverlay(
                         width: 120,
                         height: 120,
                         alignment: OverlayAlignment.center,
@@ -92,13 +92,13 @@ class _MyAppState extends State<MyApp> {
                       });
                       return;
                     } else {
-                      final result = await OverlayPopUp.closeOverlay();
+                      final result = await AndroidOverlay.closeOverlay();
                       setState(() {
                         isActive = (result == true) ? false : true;
                       });
                     }
                   } else {
-                    permissionStatus = await OverlayPopUp.requestPermission();
+                    permissionStatus = await AndroidOverlay.requestPermission();
                     setState(() {});
                   }
                 },
@@ -110,8 +110,8 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () async {
-                  if (await OverlayPopUp.isActive()) {
-                    await OverlayPopUp.sendToOverlay(
+                  if (await AndroidOverlay.isActive()) {
+                    await AndroidOverlay.sendToOverlay(
                         {'mssg': 'Hello from dart!'});
                   }
                 },
@@ -121,8 +121,8 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () async {
-                  if (await OverlayPopUp.isActive()) {
-                    await OverlayPopUp.updateOverlay(
+                  if (await AndroidOverlay.isActive()) {
+                    await AndroidOverlay.updateOverlay(
                       x: 0,
                       y: 0,
                       snapping: true
@@ -135,8 +135,8 @@ class _MyAppState extends State<MyApp> {
               ),
               MaterialButton(
                 onPressed: () async {
-                  if (await OverlayPopUp.isActive()) {
-                    final position = await OverlayPopUp.getOverlayPosition();
+                  if (await AndroidOverlay.isActive()) {
+                    final position = await AndroidOverlay.getOverlayPosition();
                     setState(() {
                       overlayPosition = (position?['overlayPosition'] != null)
                           ? position!['overlayPosition'].toString()
@@ -170,7 +170,7 @@ void customOverlay() {
       shape: const CircleBorder(),
       backgroundColor: Colors.red[900],
       elevation: 0,
-      onPressed: () async => await OverlayPopUp.closeOverlay(),
+      onPressed: () async => await AndroidOverlay.closeOverlay(),
       child: const Text('X',
           style: TextStyle(color: Colors.white, fontSize: 20)),
     ),

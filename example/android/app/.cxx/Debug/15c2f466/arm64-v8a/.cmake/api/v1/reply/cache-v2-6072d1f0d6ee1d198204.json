@@ -151,7 +151,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/arm64-v8a"
+			"value" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -763,7 +763,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Users/danemadsen/android_overlay/example/build/app/intermediates/cxx/Debug/15c2f466/obj/arm64-v8a"
+			"value" : "/Users/danemadsen/overlay_pop_up/example/build/app/intermediates/cxx/Debug/15c2f466/obj/arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1035,7 +1035,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/Users/danemadsen/android_overlay/example/build/app/intermediates/cxx/Debug/15c2f466/obj/arm64-v8a"
+			"value" : "/Users/danemadsen/overlay_pop_up/example/build/app/intermediates/cxx/Debug/15c2f466/obj/arm64-v8a"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1355,7 +1355,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/arm64-v8a"
+			"value" : "/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/arm64-v8a"
 		},
 		{
 			"name" : "Project_IS_TOP_LEVEL",

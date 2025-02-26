@@ -39,13 +39,13 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a/
+cmake_ninja_workdir = /Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a/
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a && /Users/danemadsen/Library/Android/sdk/cmake/3.22.1/bin/ccmake -S/opt/homebrew/Caskroom/flutter/3.22.1/flutter/packages/flutter_tools/gradle/src/main/groovy -B/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
+  COMMAND = cd /Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a && /Users/danemadsen/Library/Android/sdk/cmake/3.22.1/bin/ccmake -S/opt/homebrew/Caskroom/flutter/3.22.1/flutter/packages/flutter_tools/gradle/src/main/groovy -B/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -57,7 +57,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a && /Users/danemadsen/Library/Android/sdk/cmake/3.22.1/bin/cmake --regenerate-during-build -S/opt/homebrew/Caskroom/flutter/3.22.1/flutter/packages/flutter_tools/gradle/src/main/groovy -B/Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
+  COMMAND = cd /Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a && /Users/danemadsen/Library/Android/sdk/cmake/3.22.1/bin/cmake --regenerate-during-build -S/opt/homebrew/Caskroom/flutter/3.22.1/flutter/packages/flutter_tools/gradle/src/main/groovy -B/Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -73,7 +73,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/danemadsen/android_overlay/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
+# Folder: /Users/danemadsen/overlay_pop_up/example/android/app/.cxx/Debug/15c2f466/armeabi-v7a
 
 build all: phony
 
