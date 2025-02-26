@@ -1,6 +1,6 @@
 name: android_overlay
-description: A new Flutter plugin to display pop ups or screens over other apps in Android even when app is closed or killed.
-version: 1.0.5+2
+description: A Flutter plugin for displaying an overlay on top of the Android system UI.
+version: 0.0.1
 homepage: https://github.com/danemadsen/android_overlay
 
 environment:

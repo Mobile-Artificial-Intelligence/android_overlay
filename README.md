@@ -1,12 +1,6 @@
 # android_overlay
 
-A new Flutter plugin to display pop ups or screens over other apps in Android even when app is closed or killed.
-
-<a href="https://www.buymeacoffee.com/requiemz" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="195" height="55"></a>
-
-# Demo
-
-[![Preview](https://github.com/danemadsen/danemadsen/raw/main/android_overlay_demo.gif)](https://github.com/danemadsen/danemadsen/raw/main/android_overlay_demo.gif)
+A Flutter plugin for displaying an overlay on top of the Android system UI.
 
 ## Android
 
@@ -76,13 +70,12 @@ void androidOverlay() {
 
 *PARAMS*
 
+- `x` position of the overlay
+- `y` position of the overlay
 - `height` is not required by default is MATCH_PARENT
 - `width` is not required by default is MATCH_PARENT
-- `verticalAlignment` is not required by default is CENTER for more info see: <https://developer.android.com/reference/android/view/Gravity>
-- `horizontalAlignment` is not required by default is CENTER for more info see: <https://developer.android.com/reference/android/view/Gravity>
-- `backgroundBehavior` by default is focusable flag that is you can take focus inside a overlay for example inside a textfield and [tapThrough] you can tap through the overlay background even if has MATCH_PARENT sizes.
-- `screenOrientation` by default orientation is portrait.
-- `closeWhenTapBackButton` by default when user presses back button the overlay no has any action if you pass true then back button will close overlay.
+- `alignment` is not required by default is CENTER for more info see: <https://developer.android.com/reference/android/view/Gravity>
+- `snapping` by default is false therefore the overlay can´t be snapped to the edges of the screen.
 - `draggable`  by default is false therefore the overlay can´t be dragged.
 - `entryPointMethodName` by default is 'androidOverlay' if you want you can change it
 
