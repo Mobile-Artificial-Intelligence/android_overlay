@@ -2,6 +2,21 @@
 
 A Flutter plugin for displaying an overlay on top of the Android system UI.
 
+## Getting Started
+
+Add this to your package's pubspec.yaml file:
+
+```yaml
+dependencies:
+  android_overlay: ^0.0.2
+```
+
+Now in your Dart code, you can use:
+
+```dart
+import 'package:android_overlay/android_overlay.dart';
+```
+
 ## Android
 
 add this to your AndroidManifest.xml
@@ -57,13 +72,13 @@ void androidOverlay() {
   returns true when overlay permission is alreary granted if permission is not granted then open app settings
 
   ```dart
-  await OverlayPopUp.requestPermission();
+  await AndroidOverlay.requestPermission();
   ```
 
   returns true or false according to permission status
 
   ```dart
-  await OverlayPopUp.checkPermission();
+  await AndroidOverlay.checkPermission();
   ```
 
   display your overlay and return true if is showed
@@ -80,36 +95,36 @@ void androidOverlay() {
 - `entryPointMethodName` by default is 'androidOverlay' if you want you can change it
 
   ```dart
-  await OverlayPopUp.showOverlay();
+  await AndroidOverlay.showOverlay();
   ```
 
   returns true if overlay closed correctly or already is closed
 
   ```dart
-  await OverlayPopUp.closeOverlay();
+  await AndroidOverlay.closeOverlay();
   ```
 
   returns the overlay status true = open, false = closed
 
   ```dart
-  await OverlayPopUp.isActive();
+  await AndroidOverlay.isActive();
   ```
 
   returns the last overlay position if drag is enabled
 
   ```dart
-  await OverlayPopUp.getOverlayPosition();
+  await AndroidOverlay.getOverlayPosition();
   ```
 
   share dynamic data to overlay
 
   ```dart
-  await OverlayPopUp.sendToOverlay({'data':'hello!'});
-  await OverlayPopUp.sendToOverlay('hello');
+  await AndroidOverlay.sendToOverlay({'data':'hello!'});
+  await AndroidOverlay.sendToOverlay('hello');
   ```
 
   receive the data from flutter as stream
 
   ```dart
-  await OverlayPopUp.dataListener();
+  await AndroidOverlay.dataListener();
   ```
