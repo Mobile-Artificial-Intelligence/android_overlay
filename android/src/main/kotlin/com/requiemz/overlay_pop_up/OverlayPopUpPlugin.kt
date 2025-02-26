@@ -168,14 +168,15 @@ class OverlayPopUpPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     private fun updateOverlay(call: MethodCall, result: Result) {
         if (OverlayService.windowManager != null) {
-            Overlay.x = call.argument<Float>("x") ?: Overlay.x
-            Overlay.y = call.argument<Float>("y") ?: Overlay.y
+            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
+
+            Overlay.x = call.argument<Float>("x") ?: params.x.toFloat()
+            Overlay.y = call.argument<Float>("y") ?: params.y.toFloat()
             Overlay.width = call.argument<Int>("width") ?: Overlay.width
             Overlay.height = call.argument<Int>("height") ?: Overlay.height
             Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
             Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
 
-            val params = OverlayService.flutterView.layoutParams as WindowManager.LayoutParams
             params.width = Overlay.width
             params.height = Overlay.height
             params.x = Overlay.x.toInt()
