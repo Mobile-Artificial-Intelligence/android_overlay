@@ -49,7 +49,7 @@ Now you can pass as parameter the dart entry point method name when showOverlay 
 
 ```dart
 @pragma("vm:entry-point")
-void overlayPopUp() {
+void androidOverlay() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -84,7 +84,7 @@ void overlayPopUp() {
 - `screenOrientation` by default orientation is portrait.
 - `closeWhenTapBackButton` by default when user presses back button the overlay no has any action if you pass true then back button will close overlay.
 - `draggable`  by default is false therefore the overlay can´t be dragged.
-- `entryPointMethodName` by default is 'overlayPopUp' if you want you can change it
+- `entryPointMethodName` by default is 'androidOverlay' if you want you can change it
 
   ```dart
   await OverlayPopUp.showOverlay();

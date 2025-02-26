@@ -10,7 +10,7 @@ class OverlayPopUp {
 
   static const _methodChannel = MethodChannel('android_overlay');
   static const _messageChannel =
-      BasicMessageChannel('android_overlay_mssg', JSONMessageCodec());
+      BasicMessageChannel('android_overlay_msg', JSONMessageCodec());
 
   ///
   /// returns true when overlay permission is alreary granted
@@ -70,7 +70,7 @@ class OverlayPopUp {
       /// by default is false therefore the overlay will not snap to the edges.
       'snapping': snapping,
 
-      /// by default `overlayPopUp`.
+      /// by default `androidOverlay`.
       'entryPointMethodName': entryPointMethodName,
     });
     return result ?? false;

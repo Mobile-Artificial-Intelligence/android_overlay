@@ -35,9 +35,9 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
 
     companion object {
         const val OVERLAY_CHANNEL_NAME = "android_overlay"
-        const val OVERLAY_MESSAGE_CHANNEL_NAME = "android_overlay_mssg"
+        const val OVERLAY_MESSAGE_CHANNEL_NAME = "android_overlay_msg"
         const val CACHE_ENGINE_ID = "android_overlay_engine_id"
-        const val OVERLAY_POP_UP_ENTRY_BY_DEFAULT = "overlayPopUp"
+        const val ANDROID_OVERLAY_ENTRY_BY_DEFAULT = "androidOverlay"
         const val PERMISSION_CODE = 1996
     }
 
@@ -109,7 +109,7 @@ class AndroidOverlayPlugin : FlutterPlugin, MethodCallHandler, ActivityAware,
         Overlay.alignment = call.argument<Int>("alignment") ?: Overlay.alignment
         Overlay.draggable = call.argument<Boolean>("draggable") ?: Overlay.draggable
         Overlay.snapping = call.argument<Boolean>("snapping") ?: Overlay.snapping
-        Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: OVERLAY_POP_UP_ENTRY_BY_DEFAULT
+        Overlay.entryPointMethodName = call.argument<String>("entryPointMethodName") ?: ANDROID_OVERLAY_ENTRY_BY_DEFAULT
 
         // Initialize and cache the FlutterEngine before starting the service
         initializeAndCacheFlutterEngine()
